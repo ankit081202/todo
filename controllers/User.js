@@ -212,7 +212,7 @@ export const updatePassword = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("+password");
 
-    const { oldPassword, newPassword ,confirmPassword} = req.body;
+    const { oldPassword, newPassword } = req.body;
 
     if (!oldPassword || !newPassword) {
       return res
@@ -228,11 +228,6 @@ export const updatePassword = async (req, res) => {
         .json({ success: false, message: "Invalid Old Password" });
     }
 
-    if (confirmPassword !== newPassword) {
-      return res
-        .status(400)
-        .json({ success: false, message: "renter new password" });
-    }
     user.password = newPassword;
 
     await user.save();
